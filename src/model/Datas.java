@@ -7,26 +7,22 @@ import java.util.concurrent.LinkedBlockingQueue;
 import controller.packets.InputThread;
 import controller.packets.OutputThread;
 
+
 public class Datas {
+	
+	//View 
 	
 	//View datas :
 	private ArrayList<String> countries;
 	private ArrayList<String> sports;
 	private ArrayList<Integer> sportsActions;
+	private ArrayList<String> sportsActionsNames;
 	
 	//Connexion datas :
 	private OutputThread ot;
-	private InputThread it;
 	private SocketAction socketAction;
 	
 	public Datas(){
-		
-		Socket sock = new Socket();
-		
-		this.socketAction = new SocketAction();
-		
-		this.ot = new OutputThread();
-		this.it = new InputThread();
 		
 		countries = new ArrayList<String>();
 		sports = new ArrayList<String>();

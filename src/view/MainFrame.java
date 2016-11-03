@@ -1,7 +1,10 @@
 package view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import javax.swing.JFrame;
 
@@ -9,11 +12,13 @@ import model.Datas;
 
 public class MainFrame extends JFrame {
 	
+	private LinkedBlockingQueue<String> commands;
 	private Datas datas;
 	private MainPanel mainPanel;
 
-	public MainFrame(Datas datas) {
+	public MainFrame(Datas datas, LinkedBlockingQueue<String> commands) {
 		
+		this.commands = commands;
 		this.datas = datas;
 		this.setSize(800, 550);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -54,7 +59,39 @@ public class MainFrame extends JFrame {
 	
 	public void setListeners(){
 		
-		//MainFrame me = this;
+		mainPanel.getSportComboBox().addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				if(arg0.getStateChange() == ItemEvent.SELECTED) {
+					
+					int ind = mainPanel.getSportComboBox().getSelectedIndex();
+					
+					int buttonCount = datas.getSportsActions().get(ind);
+					
+					mainPanel.getBtnGuestScore1().setVisible(false);
+					mainPanel.getBtnGuestScore2().setVisible(false);
+					mainPanel.getBtnGuestScore3().setVisible(false);
+					mainPanel.getBtnHomeScore1().setVisible(false);
+					mainPanel.getBtnHomeScore2().setVisible(false);
+					mainPanel.getBtnHomeScore3().setVisible(false);
+					
+					if(buttonCount>0){
+						mainPanel.getBtnGuestScore1().setVisible(true);
+						mainPanel.getBtnHomeScore1().setVisible(true);
+					}
+					if(buttonCount>1){
+						mainPanel.getBtnGuestScore2().setVisible(true);
+						mainPanel.getBtnHomeScore2().setVisible(true);
+					}
+					if(buttonCount>2){
+						mainPanel.getBtnGuestScore3().setVisible(true);
+						mainPanel.getBtnHomeScore3().setVisible(true);
+					}
+					
+					//System.out.println("Sports");
+                }
+				
+			}
+		});
 		
 		mainPanel.getHomeComboBox().addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -74,7 +111,10 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
-		
-	
+		mainPanel.getBtnNewGame().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("New Game");
+			}
+		});
 	}
 }

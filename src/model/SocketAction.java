@@ -13,7 +13,8 @@ class SocketAction extends Thread {
 	private ObjectInputStream inStream = null;
 	private ObjectOutputStream outStream = null;
 	private Socket socket = null;
-
+	
+	
 	public SocketAction() {
 	}
 

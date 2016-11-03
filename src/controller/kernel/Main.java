@@ -17,7 +17,10 @@ public class Main {
 		f.loadCountries("countries.csv");
 		f.loadSports("sports.csv");
 		
-		MainFrame p = new MainFrame(d);
+		OutputThread ot = new OutputThread(d);
+		new Thread(ot).start();
+		
+		MainFrame p = new MainFrame(d,ot.getOutputQueue());
 		
 		p.setListeners();
 		p.updateContent();
