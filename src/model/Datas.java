@@ -1,5 +1,6 @@
 package model;
 
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -10,26 +11,28 @@ import controller.packets.OutputThread;
 
 public class Datas {
 	
-	//View 
+	//Connexion datas
+	//@todo : To load from config file, later on.
+	private InetAddress inAddress;
+	private int port;
+	private SocketAction socketAction;
+	private OutputThread ot;
 	
 	//View datas :
 	private ArrayList<String> countries;
 	private ArrayList<String> sports;
 	private ArrayList<Integer> sportsActions;
-	private ArrayList<String> sportsActionsNames;
-	
-	//Connexion datas :
-	private OutputThread ot;
-	private SocketAction socketAction;
+	private ArrayList<String[]> sportsActionsNames;
+
 	
 	public Datas(){
+		//temporary :
 		
+		sportsActionsNames = new ArrayList<String[]>();
 		countries = new ArrayList<String>();
 		sports = new ArrayList<String>();
-		sportsActions = new ArrayList<Integer>();
-		
+		sportsActions = new ArrayList<Integer>();	
 	}
-	
 	
 	public ArrayList<String> getCountries() {
 		return countries;
@@ -49,6 +52,47 @@ public class Datas {
 	public void setSportsActions(ArrayList<Integer> sportsActions) {
 		this.sportsActions = sportsActions;
 	}
+	
+	public ArrayList<String[]> getSportsActionsNames() {
+		return sportsActionsNames;
+	}
+	
+	public void setSportsActionsNames(ArrayList<String[]> sportsActionsNames) {
+		this.sportsActionsNames = sportsActionsNames;
+	}
+
+	public InetAddress getInAddress() {
+		return inAddress;
+	}
+
+	public void setInAddress(InetAddress inAddress) {
+		this.inAddress = inAddress;
+	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+	public SocketAction getSocketAction() {
+		return socketAction;
+	}
+
+	public void setSocketAction(SocketAction socketAction) {
+		this.socketAction = socketAction;
+	}
+
+	public OutputThread getOt() {
+		return ot;
+	}
+
+	public void setOt(OutputThread ot) {
+		this.ot = ot;
+	}
+	
 	
 }
 

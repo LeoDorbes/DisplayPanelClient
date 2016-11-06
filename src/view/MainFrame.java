@@ -48,7 +48,6 @@ public class MainFrame extends JFrame {
 		}
 	}
 	
-	
 	public void updateHomeComboBox(){
 		mainPanel.getHomeComboBox().removeAllItems();
 		for (String country : datas.getCountries()) {
@@ -58,6 +57,10 @@ public class MainFrame extends JFrame {
 	}
 	
 	public void setListeners(){
+		
+		/*
+		 * This part will set the listeners setting the application.
+		 */
 		
 		mainPanel.getSportComboBox().addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -74,16 +77,22 @@ public class MainFrame extends JFrame {
 					mainPanel.getBtnHomeScore2().setVisible(false);
 					mainPanel.getBtnHomeScore3().setVisible(false);
 					
-					if(buttonCount>0){
+					if(buttonCount > 0 ){
+						mainPanel.getBtnGuestScore1().setText(datas.getSportsActionsNames().get(ind)[0]);
 						mainPanel.getBtnGuestScore1().setVisible(true);
+						mainPanel.getBtnHomeScore1().setText(datas.getSportsActionsNames().get(ind)[0]);
 						mainPanel.getBtnHomeScore1().setVisible(true);
 					}
 					if(buttonCount>1){
+						mainPanel.getBtnGuestScore2().setText(datas.getSportsActionsNames().get(ind)[1]);
 						mainPanel.getBtnGuestScore2().setVisible(true);
+						mainPanel.getBtnHomeScore2().setText(datas.getSportsActionsNames().get(ind)[1]);
 						mainPanel.getBtnHomeScore2().setVisible(true);
 					}
 					if(buttonCount>2){
+						mainPanel.getBtnGuestScore3().setText(datas.getSportsActionsNames().get(ind)[2]);
 						mainPanel.getBtnGuestScore3().setVisible(true);
+						mainPanel.getBtnHomeScore3().setText(datas.getSportsActionsNames().get(ind)[2]);
 						mainPanel.getBtnHomeScore3().setVisible(true);
 					}
 					
@@ -111,9 +120,55 @@ public class MainFrame extends JFrame {
 			}
 		});
 		
+		/*
+		 * This part will set the listeners communicating with the server.
+		 */
+		
+		mainPanel.getBtnGuestScore1().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Guest 1");
+			}
+		});
+		
+		mainPanel.getBtnGuestScore2().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Guest 2");
+			}
+		});
+		
+		mainPanel.getBtnGuestScore3().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Guest 3");
+			}
+		});
+		
+		mainPanel.getBtnHomeScore1().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Home 1");
+			}
+		});
+		
+		mainPanel.getBtnHomeScore2().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Home 2");
+			}
+		});
+		
+		mainPanel.getBtnHomeScore3().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Home 3");
+			}
+		});
+		
 		mainPanel.getBtnNewGame().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				commands.add("New Game");
+			}
+		});
+		
+		mainPanel.getBtnPause().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				commands.add("Pause Game");
 			}
 		});
 	}

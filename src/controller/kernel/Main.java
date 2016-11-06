@@ -16,6 +16,7 @@ public class Main {
 		FileLoader f = new FileLoader(d);
 		f.loadCountries("countries.csv");
 		f.loadSports("sports.csv");
+		f.loadConfig("config.csv");
 		
 		OutputThread ot = new OutputThread(d);
 		new Thread(ot).start();

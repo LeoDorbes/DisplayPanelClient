@@ -2,7 +2,10 @@ package controller.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import model.Datas;
@@ -26,10 +29,10 @@ public class FileLoader {
 			while (scanner.hasNextLine()) {
 				i++;
 				lineStrings = scanner.nextLine().split(";");
-				
+
 				if (lineStrings.length != 1) {
-					System.out.println("Ligne " + i + " du fichier " + filePath + " non lisible");	
-				}else{
+					System.out.println("Ligne " + i + " du fichier " + filePath + " non lisible");
+				} else {
 					datas.getCountries().add(lineStrings[0]);
 				}
 			}
@@ -51,14 +54,24 @@ public class FileLoader {
 				i++;
 				lineStrings = scanner.nextLine().split(";");
 
-				if (lineStrings.length != 2) {
+				if (lineStrings.length < 2) {
 					System.out.println("Ligne " + i + " du fichier " + filePath + " non lisible");
-				} else{
-					try{
+				} else {
+					try {
 						int methodCount = Integer.parseInt(lineStrings[1]);
-						datas.getSports().add(lineStrings[0]);
-						datas.getSportsActions().add(methodCount);
-					}catch(NumberFormatException e){
+						if (lineStrings.length != methodCount + 2) {
+							System.out.println("Ligne " + i + " du fichier " + filePath + " non lisible");
+						} else {
+							String[] s = new String[methodCount];
+							for (int j = 0; j < methodCount; j++) {
+								s[j] = lineStrings[j + 2];
+							}
+							datas.getSportsActionsNames().add(s);
+							datas.getSports().add(lineStrings[0]);
+							datas.getSportsActions().add(methodCount);
+						}
+
+					} catch (NumberFormatException e) {
 						System.out.println("Ligne " + i + " du fichier ne respecte pas le bon format ");
 					}
 				}
@@ -70,6 +83,38 @@ public class FileLoader {
 		}
 	}
 
-	
+	public void loadConfig(String filePath) {
+		File file = new File(filePath);
+		try {
+			Scanner scanner = new Scanner(file);
+			int i = 0;
+			String[] lineStrings;
+
+			// Loading the ip adress :
+			lineStrings = scanner.nextLine().split(";");
+
+			try {
+				datas.setInAddress(InetAddress.getByName(lineStrings[0]));
+				
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Erreur de l'adresse IP au chargement du fichier!");
+			}
+			
+			lineStrings = scanner.nextLine().split(";");
+			try{
+				datas.setPort(Integer.parseInt(lineStrings[0]));
+			}catch(NumberFormatException e){
+				System.out.println("Erreur : Le format du port est incorrect dans votre fichier de config!");
+			}
+			
+			//System.out.println(datas.getInAddress());
+			//System.out.println(datas.getPort());
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }
