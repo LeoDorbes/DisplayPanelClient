@@ -2,6 +2,7 @@ package model;
 
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -13,7 +14,7 @@ public class Datas {
 	
 	//Connexion datas
 	//@todo : To load from config file, later on.
-	private InetAddress inAddress;
+	private String host;
 	private int port;
 	private SocketAction socketAction;
 	private OutputThread ot;
@@ -26,6 +27,7 @@ public class Datas {
 
 	
 	public Datas(){
+		
 		//temporary :
 		
 		sportsActionsNames = new ArrayList<String[]>();
@@ -60,13 +62,14 @@ public class Datas {
 	public void setSportsActionsNames(ArrayList<String[]> sportsActionsNames) {
 		this.sportsActionsNames = sportsActionsNames;
 	}
+	
 
-	public InetAddress getInAddress() {
-		return inAddress;
+	public String getHost() {
+		return host;
 	}
 
-	public void setInAddress(InetAddress inAddress) {
-		this.inAddress = inAddress;
+	public void setHost(String host) {
+		this.host = host;
 	}
 
 	public int getPort() {

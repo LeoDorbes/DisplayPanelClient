@@ -1,7 +1,5 @@
 package controller.packets;
 
-
-
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -27,19 +25,28 @@ public class OutputThread implements Runnable {
 		while (!closeThread) {
 			try {
 				cmd = outputQueue.take();
-				
-				if(socketAction ==null){
-					
+
+				if (socketAction == null) {
+
 					try {
-						socketAction = new SocketAction(new Socket(datas.getInAddress(), datas.getPort()));
+						socketAction = new SocketAction(new Socket(datas.getHost(), datas.getPort()));
 					} catch (IOException e) {
-						System.out.println("test erreur");
+						System.out.println("Impossible d'initialiser la socket");
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
+					
 				}
 				
+				if (socketAction.isConnected()){
+					socketAction.send(cmd);
+				}else{
+					System.out.println("Could not send : "+cmd);
+				}
+
 				
+
 				System.out.println(cmd);
 			} catch (InterruptedException e) {
 				this.closeThread = true;

@@ -93,13 +93,7 @@ public class FileLoader {
 			// Loading the ip adress :
 			lineStrings = scanner.nextLine().split(";");
 
-			try {
-				datas.setInAddress(InetAddress.getByName(lineStrings[0]));
-				
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Erreur de l'adresse IP au chargement du fichier!");
-			}
+			datas.setHost(lineStrings[0]);
 			
 			lineStrings = scanner.nextLine().split(";");
 			try{
@@ -115,6 +109,8 @@ public class FileLoader {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println("Fichier de configuration chargé --- PORT : "+datas.getPort()+" --- IP : "+datas.getHost());
 	}
 
 }
