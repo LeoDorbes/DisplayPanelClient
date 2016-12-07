@@ -13,8 +13,7 @@ public class SocketAction extends Thread {
 	private ObjectInputStream inStream = null;
 	private ObjectOutputStream outStream = null;
 	private Socket socket = null;
-	
-	
+
 	public SocketAction() {
 	}
 
@@ -27,7 +26,7 @@ public class SocketAction extends Thread {
 			outStream = new ObjectOutputStream(socket.getOutputStream());
 			inStream = new ObjectInputStream(socket.getInputStream());
 			System.out.println("SocketAction::ObjectStreams Created");
-			
+
 		} catch (IOException e) {
 			System.out.println("Couldn't initialize SocketAction: " + e);
 			System.exit(1);
@@ -55,17 +54,20 @@ public class SocketAction extends Thread {
 	}
 
 	public void closeConnections() {
-		try {
-			socket.close();
-			socket = null;
-		} catch (IOException e) {
-			System.out.println("Couldn't close socket: " + e);
+		if (socket != null) {
+			try {
+				socket.close();
+				socket = null;
+			} catch (IOException e) {
+				System.out.println("Couldn't close socket: " + e);
+			}
 		}
+
 	}
 
 	public boolean isConnected() {
-		//System.out.println("SocketAction::IsConnected Called");
-		return ((inStream != null) && (outStream != null) && (socket != null));
+		// System.out.println("SocketAction::IsConnected Called");
+		return !(socket == null);
 	}
 
 	protected void finalize() {

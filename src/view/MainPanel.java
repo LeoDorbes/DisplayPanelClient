@@ -14,11 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.SwingConstants;
+import java.awt.Color;
 
 public class MainPanel extends JPanel {
 
 	private Datas datas;
 
+	private JLabel lblConnection;
 	private JLabel lblHome;
 	private JLabel lblGuest;
 	private JComboBox homeComboBox;
@@ -33,6 +36,8 @@ public class MainPanel extends JPanel {
 	private JButton btnGuestScore1;
 	private JButton btnGuestScore2;
 	private JButton btnGuestScore3;
+	private JLabel lblHomeName;
+	private JLabel lblGuestName;
 
 	public MainPanel(Datas datas) {
 		this.datas = datas;
@@ -112,6 +117,24 @@ public class MainPanel extends JPanel {
 		btnGuestScore3.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		btnGuestScore3.setBounds(503, 441, 172, 38);
 		add(btnGuestScore3);
+		
+		this.lblHomeName = new JLabel("Domicile");
+		lblHomeName.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblHomeName.setBounds(88, 272, 115, 44);
+		add(lblHomeName);
+		
+		this.lblGuestName = new JLabel("Invit\u00E9");
+		lblGuestName.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblGuestName.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblGuestName.setBounds(613, 271, 115, 44);
+		add(lblGuestName);
+		
+		this.lblConnection = new JLabel("OFF");
+		lblConnection.setForeground(Color.RED);
+		lblConnection.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblConnection.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblConnection.setBounds(675, 0, 115, 44);
+		add(lblConnection);
 
 	}
 	
@@ -202,7 +225,30 @@ public class MainPanel extends JPanel {
 	public void setBtnGuestScore3(JButton btnGuestScore3) {
 		this.btnGuestScore3 = btnGuestScore3;
 	}
-	
-	
 
+	public JLabel getLblHomeName() {
+		return lblHomeName;
+	}
+
+	public void setLblHomeName(JLabel lblHomeName) {
+		this.lblHomeName = lblHomeName;
+	}
+
+	public JLabel getLblGuestName() {
+		return lblGuestName;
+	}
+
+	public void setLblGuestName(JLabel lblGuestName) {
+		this.lblGuestName = lblGuestName;
+	}
+
+	public JLabel getLblConnection() {
+		return lblConnection;
+	}
+
+	public void setLblConnection(JLabel lblConnection) {
+		this.lblConnection = lblConnection;
+	}
+	
+	
 }

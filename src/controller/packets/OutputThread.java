@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import controller.actions.GameActions;
 import model.Datas;
 import model.SocketAction;
 
@@ -23,38 +24,45 @@ public class OutputThread implements Runnable {
 	public void run() {
 		String cmd;
 		while (!closeThread) {
+
 			try {
 				cmd = outputQueue.take();
 
 				if (socketAction == null) {
-
 					try {
 						socketAction = new SocketAction(new Socket(datas.getHost(), datas.getPort()));
+
+						Thread inputThread = new Thread(new InputThread(socketAction, datas, this));
+						inputThread.start();
+						
 					} catch (IOException e) {
-						System.out.println("Impossible d'initialiser la socket");
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						System.out.println("Impossible to initialize connection with the server");
+
 					}
-					
-					
-				}
-				
-				if (socketAction.isConnected()){
-					socketAction.send(cmd);
-				}else{
-					System.out.println("Could not send : "+cmd);
 				}
 
-				
+				if (socketAction != null) {
+					if (socketAction.isConnected()) {
+						socketAction.send(cmd);
+						System.out.println("Sent by client : " + cmd);
+					} else {
+						
+						//If the connection to the server is lost : We reset the client
+						GameActions.gameHasFinished(datas);
+						socketAction = null;
+						
+					}
+				}
 
-				System.out.println(cmd);
 			} catch (InterruptedException e) {
-				this.closeThread = true;
+
+				socketAction = null;
+				// this.closeThread = true;
 			}
+
 		}
 
 	}
-
 	public LinkedBlockingQueue getOutputQueue() {
 		return outputQueue;
 	}
@@ -62,4 +70,18 @@ public class OutputThread implements Runnable {
 	public void setOutputQueue(LinkedBlockingQueue outputQueue) {
 		this.outputQueue = outputQueue;
 	}
+
+	public void closeSocketAction() {
+		socketAction.closeConnections();
+	}
+	
+	public boolean isConnected(){
+		boolean r;
+		if(socketAction != null)r=socketAction.isConnected();
+		else r = false;
+		return r;
+	}
+
+	
+	
 }
