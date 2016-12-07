@@ -54,21 +54,23 @@ public class FileLoader {
 				i++;
 				lineStrings = scanner.nextLine().split(";");
 
-				if (lineStrings.length < 2) {
+				if (lineStrings.length < 3) {
 					System.out.println("Ligne " + i + " du fichier " + filePath + " non lisible");
 				} else {
 					try {
-						int methodCount = Integer.parseInt(lineStrings[1]);
-						if (lineStrings.length != methodCount + 2) {
+						long timer = Long.parseLong(lineStrings[1]);
+						int methodCount = Integer.parseInt(lineStrings[2]);
+						if (lineStrings.length != methodCount + 3) {
 							System.out.println("Ligne " + i + " du fichier " + filePath + " non lisible");
 						} else {
 							String[] s = new String[methodCount];
 							for (int j = 0; j < methodCount; j++) {
-								s[j] = lineStrings[j + 2];
+								s[j] = lineStrings[j + 3];
 							}
 							datas.getSportsActionsNames().add(s);
 							datas.getSports().add(lineStrings[0]);
 							datas.getSportsActions().add(methodCount);
+							datas.getSportsTimes().add(timer);
 						}
 
 					} catch (NumberFormatException e) {

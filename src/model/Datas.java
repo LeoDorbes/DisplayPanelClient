@@ -28,6 +28,7 @@ public class Datas {
 	// View datas :
 	private ArrayList<String> countries;
 	private ArrayList<String> sports;
+	private ArrayList<Long> sportsTimes;
 	private ArrayList<Integer> sportsActions;
 	private ArrayList<String[]> sportsActionsNames;
 	private boolean gameOn;
@@ -39,6 +40,7 @@ public class Datas {
 		countries = new ArrayList<String>();
 		sports = new ArrayList<String>();
 		sportsActions = new ArrayList<Integer>();
+		sportsTimes = new ArrayList<Long>();
 		gameOn = false;
 	}
 
@@ -121,5 +123,14 @@ public class Datas {
 	public void setOt(OutputThread ot) {
 		this.ot = ot;
 	}
+
+	public ArrayList<Long> getSportsTimes() {
+		return sportsTimes;
+	}
+
+	public void setSportsTimes(ArrayList<Long> sportsTimes) {
+		this.sportsTimes = sportsTimes;
+	}
+	
 
 }

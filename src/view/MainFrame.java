@@ -251,13 +251,19 @@ public class MainFrame extends JFrame {
 					commands.add("Cancel Game");
 				} else {
 
-					String s = "New Game" + Datas.separator;
-					s = s + mainPanel.getSportComboBox().getSelectedItem().toString() + Datas.separator;
-					s = s + mainPanel.getHomeComboBox().getSelectedItem().toString() + Datas.separator;
-					s = s + mainPanel.getGuestComboBox().getSelectedItem().toString() + Datas.separator;
-					s = s + "180"; // @Todo : Ajouter la gestion du timer
-
-					commands.add(s);
+					int index=0;
+					index = datas.getSports().indexOf(mainPanel.getSportComboBox().getSelectedItem().toString());
+					long value;
+					if(index != -1 ){
+						String s = "New Game" + Datas.separator;
+						s = s + mainPanel.getSportComboBox().getSelectedItem().toString() + Datas.separator;
+						s = s + mainPanel.getHomeComboBox().getSelectedItem().toString() + Datas.separator;
+						s = s + mainPanel.getGuestComboBox().getSelectedItem().toString() + Datas.separator;
+						s = s + datas.getSportsTimes().get(index);
+						commands.add(s);
+					}else{
+						System.out.println("Error : Time is not readable");
+					}
 				}
 			}
 		});
