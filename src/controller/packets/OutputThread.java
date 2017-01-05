@@ -37,7 +37,6 @@ public class OutputThread implements Runnable {
 						
 					} catch (IOException e) {
 						System.out.println("Impossible to initialize connection with the server");
-
 					}
 				}
 
